@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border: none;
+        }
+        body{
+            background: #cdcdcd;
+        }
+        header{
+            height: 50px;
+            color: #fff;
+            text-align: center;
+            background: #2f2f2ffa;
+        }
+        header>div{
+            width: 600px;
+            margin: 0 auto;
+        }
+        header h2{
+            float: left;
+            line-height: 50px;
+        }
+        header input{
+            width: 60%;
+            float:right;
+            margin-top: 12px;
+            height: 24px;
+            border-radius: 5px;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.24), 0 1px 6px rgba(0,0,0,0.45) inset;
+            border: none;
+        }
+        section{
+            width: 600px;
+            margin:10px auto;
+        }
+        section>.state{
+            display: flex;
+        }
+        section>.state>span{
+            margin: 10px 5px;
+            color: #666;
+            font-size: 16px;
+            text-align: center;
+            line-height: 20px;
+            cursor:pointer;
+        }
+        ol>li{
+            height: 32px;
+            line-height: 32px;
+            background: #fff;
+            position: relative;
+            margin-bottom: 10px;
+            padding: 0 45px;
+            border-radius: 3px;
+            border-left: 5px solid #629A9C;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+        }
+        ol>li>span{
+            display: inline-block;
+            width:15px;
+            height:15px;
+            border: 1px solid #cdcdcd;
+            border-radius: 5px;
+        }
+        ol>li>button{
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 28px;
+            height: 26px;
+            border-radius: 14px;
+            border: 6px double #FFF;
+            background: #CCC;
+            line-height: 14px;
+            text-align: center;
+            color: #FFF;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        ol>li>span.active{
+            background: deepskyblue;
+        }
+        section>.state>span.active{
+            color: deepskyblue;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+     <header>
+        <div>
+            <h2>ToDoList</h2>
+            <input type="text" placeholder="添加ToDo" @keydown.enter="add" v-model="text" v-fous>
+        </div>
+    </header>
+    <section>
+        <div class="state">
+            <span :class="{active:state==2}" @click="changeState(2)">全部</span>
+            <span :class="{active:state==0}" @click="changeState(0)">未完成</span>
+            <span :class="{active:state==1}" @click="changeState(1)">已完成</span>
+        </div>
+        <ol>
+            <li v-for="item in stat">
+                <span @click="change(item)" :class="{active:item.style==1}"></span>
+                <input type="text" v-model="item.title">
+                <button @click="del(item.id)">-</button>
+            </li>
+        </ol>
+        <div v-show="lis.length==0">没有数据</div>
+    </section>
+
+</div>
+</body>
+</html>
+<script src="component.js"></script>
+<script src="todo.js"></script>
